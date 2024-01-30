@@ -34,3 +34,5 @@ Packages required:
 - To get JWT token, run the Parper/AccessToken api from the swagger. Copy the api code and paste it in the Authorization code box of the update api that is Parper/{id}/updateStatus.
 - While model is created the contents have been added to tables for transaction data. You can find it in the ParperaDbCOntext file. 
 - Connection string is added but that requires [configuration to be done on running machine]. However, db class is generated inside the project as Parper.db.
+
+Note: The test case has not been running successfully as of now.
