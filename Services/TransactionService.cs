@@ -5,6 +5,7 @@ using Parpera.Interface;
 using System.Net.Http.Headers;
 using Parpera.HelperClass;
 using Parpera.Entities;
+using Parpera.DbContext;
 
 namespace Parpera.Services
 {
@@ -15,7 +16,6 @@ namespace Parpera.Services
             try
             {
                 var transactionList = new TransactionList();
-                // Additional logic if needed
                 return (true, transactionList.Transactions, null);
             }
             catch (Exception e)
@@ -30,10 +30,13 @@ namespace Parpera.Services
             var transactions = TransactionList.GetTransactions();
             var transactionToUpdate = transactions.Find(t => t.ID == id);
 
-            transactionToUpdate.Status = input.Status;
+            if(transactionToUpdate == null)
+            {
+                return null;
 
-            return await Task.FromResult(transactionToUpdate);
-            
+            }
+            transactionToUpdate.Status = input.Status;
+            return transactionToUpdate;
         }
     }
 }

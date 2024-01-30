@@ -1,8 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Parpera.DbContext;
+using Parpera.Entities;
 using Parpera.HelperClass;
 using Parpera.Interface;
 using System.Transactions;
+using Transaction = Parpera.HelperClass.Transaction;
 
 namespace Parpera.Controllers;
 
@@ -12,10 +16,12 @@ public class ParperaController : ControllerBase
 {
     private readonly ILogger<ParperaController> _logger;
     private readonly ITransactionService service;
+    private readonly ParperaDbContext _dbContext;
 
-    public ParperaController(ILogger<ParperaController> logger, ITransactionService transactionService)
+    public ParperaController(ILogger<ParperaController> logger, ITransactionService transactionService, ParperaDbContext dbContext)
     {
         _logger = logger;
+        _dbContext = dbContext;
         service = transactionService;
     }
 
@@ -42,13 +48,23 @@ public class ParperaController : ControllerBase
         }
     }
 
+
+    [HttpPost]
+    public IActionResult CreateTransaction([FromBody] TransactionEntity transaction)
+    {
+        _dbContext.Transaction.Add(transaction);
+        _dbContext.SaveChanges();
+        return Ok("Transaction created successfully");
+    }
+
+
     [HttpPut("{id}/updateStatus")]
-    //[Authorize]
+    //[Authorize(Policy = "RequireAuthenticatedUser")]
     public async Task<ActionResult<Response>> UpdateTransactionStatus(int id, [FromBody] UpdateStatusInput input)
     {
         try
         {
-            var updated = service.UpdateTransactionStatus(id, input);
+            var updated = await service.UpdateTransactionStatus(id, input);
 
             return Ok(new Response
             {
