@@ -6,7 +6,7 @@ This is a parpera-code-challenges. There are 3 apis:
 3. Create new Transaction
 
 ## Getting Started
-Run the project on visual studio. Th swagger is enabled for now.
+Run the project on visual studio. The swagger is enabled for now.
 
 ### Prerequisites
 Packages required:
@@ -29,8 +29,8 @@ Packages required:
 - Interface : Interface to add functions to be used in API.
 
 ##### Bonus
-- Authentication code has been commented for now in Program.cs file.
-- JWT token authorization is enable which required you to add token while you try to update transaction.
-- To get JWT toke, run the Parper/AccessToken api from the swagger. Copy the api code and paste it in the AUthorization code box of the update api that is Parper/{id}/updateStatus.
-- While model is created the contents has been added to tables for transaction data. You can find it in the ParperaDbCOntext file. 
+- Logic for Authentication code can be found in Program.cs file.
+- JWT token authorization is enabled which is required. As you have to add token while you try to update transaction.
+- To get JWT token, run the Parper/AccessToken api from the swagger. Copy the api code and paste it in the Authorization code box of the update api that is Parper/{id}/updateStatus.
+- While model is created the contents have been added to tables for transaction data. You can find it in the ParperaDbCOntext file. 
 - Connection string is added but that requires [configuration to be done on running machine]. However, db class is generated inside the project as Parper.db.
